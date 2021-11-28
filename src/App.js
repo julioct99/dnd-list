@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { first_list } from './data';
+import List from './List';
+
+const reorder = ({ list, sourceIndex, destinationIndex }) => {
+  const result = [...list];
+  const [removed] = result.splice(sourceIndex, 1);
+  result.splice(destinationIndex, 0, removed);
+  return result;
+};
 
 function App() {
+  const [items, setItems] = useState(first_list);
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const newItems = reorder({
+      list: items,
+      sourceIndex: result.source.index,
+      destinationIndex: result.destination.index,
+    });
+
+    setItems(newItems);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <List id={1} items={items} />
+    </DragDropContext>
   );
 }
 
