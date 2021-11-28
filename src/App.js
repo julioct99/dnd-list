@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { first_list } from './data';
+import { data } from './data';
 import List from './List';
 
 const reorder = ({ list, sourceIndex, destinationIndex }) => {
@@ -11,7 +11,7 @@ const reorder = ({ list, sourceIndex, destinationIndex }) => {
 };
 
 function App() {
-  const [items, setItems] = useState(first_list);
+  const [items, setItems] = useState(data);
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;

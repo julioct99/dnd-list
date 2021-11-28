@@ -1,4 +1,4 @@
-export const first_list = [
+export const data = [
   { name: 'Item 1' },
   { name: 'Item 2' },
   { name: 'Item 3' },
